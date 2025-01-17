@@ -1,0 +1,146 @@
+/* Base styles */
+:root {
+    --primary-color: #2962ff;
+    --secondary-color: #0039cb;
+    --background-color: #121212;
+    --surface-color: #1e1e1e;
+    --text-color: #ffffff;
+    --text-secondary: #b0b0b0;
+    --success-color: #00c853;
+    --error-color: #ff1744;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+/* Header styles */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+    margin-bottom: 2rem;
+}
+
+header h1 {
+    font-size: 1.8rem;
+    color: var(--primary-color);
+}
+
+nav select {
+    background-color: var(--surface-color);
+    color: var(--text-color);
+    border: 1px solid var(--primary-color);
+    padding: 0.5rem;
+    margin-left: 1rem;
+    border-radius: 4px;
+}
+
+/* Chart container styles */
+.chart-container {
+    background-color: var(--surface-color);
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+#price-chart, #volume-chart {
+    width: 100%;
+    height: 400px;
+}
+
+/* Indicators container styles */
+.indicators-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+#rsi-chart, #macd-chart {
+    background-color: var(--surface-color);
+    border-radius: 8px;
+    padding: 1rem;
+    height: 300px;
+}
+
+/* Signals container styles */
+.signals-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.signal-card {
+    background-color: var(--surface-color);
+    border-radius: 8px;
+    padding: 1rem;
+}
+
+.signal-card h3 {
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+
+/* Market info styles */
+.market-info {
+    position: fixed;
+    right: 1rem;
+    top: 5rem;
+    width: 250px;
+}
+
+.info-card {
+    background-color: var(--surface-color);
+    border-radius: 8px;
+    padding: 1rem;
+}
+
+.info-card table {
+    width: 100%;
+}
+
+.info-card td {
+    padding: 0.5rem 0;
+}
+
+.info-card td:first-child {
+    color: var(--text-secondary);
+}
+
+/* Responsive design */
+@media (max-width: 1200px) {
+    .market-info {
+        position: static;
+        width: 100%;
+        margin-top: 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .indicators-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .signals-container {
+        grid-template-columns: 1fr;
+    }
+}
