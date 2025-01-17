@@ -3,74 +3,87 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>trAIder - AI-Powered Trading Analysis</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <title>trAIder Dashboard</title>
+    
+    <!-- Plotly.js -->
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
-<body>
-    <div class="container">
-        <header>
+<body class="dark-theme">
+    <div class="dashboard-container">
+        <!-- Header -->
+        <header class="dashboard-header">
             <h1>trAIder Dashboard</h1>
-            <nav>
-                <select id="symbol-selector">
-                    <option value="BTCUSDT">BTC/USDT</option>
-                    <option value="ETHUSDT">ETH/USDT</option>
-                    <option value="BNBUSDT">BNB/USDT</option>
+            <div class="controls">
+                <select id="timeframeSelect" class="control-item">
+                    <option value="1m">1 Minute</option>
+                    <option value="5m">5 Minutes</option>
+                    <option value="15m">15 Minutes</option>
+                    <option value="1h" selected>1 Hour</option>
+                    <option value="4h">4 Hours</option>
+                    <option value="1d">1 Day</option>
                 </select>
-                <select id="interval-selector">
-                    <option value="1m">1 minute</option>
-                    <option value="5m">5 minutes</option>
-                    <option value="15m">15 minutes</option>
-                    <option value="1h">1 hour</option>
-                </select>
-            </nav>
+                
+                <div class="indicator-toggles">
+                    <label class="control-item">
+                        <input type="checkbox" id="rsiToggle" checked>
+                        RSI
+                    </label>
+                    <label class="control-item">
+                        <input type="checkbox" id="macdToggle" checked>
+                        MACD
+                    </label>
+                    <label class="control-item">
+                        <input type="checkbox" id="signalsToggle" checked>
+                        Signals
+                    </label>
+                </div>
+            </div>
         </header>
 
-        <main>
-            <div class="chart-container">
-                <div id="price-chart"></div>
-                <div id="volume-chart"></div>
-            </div>
+        <!-- Main chart area -->
+        <div class="chart-container">
+            <div id="mainChart" class="chart-component"></div>
+        </div>
 
-            <div class="indicators-container">
-                <div id="rsi-chart"></div>
-                <div id="macd-chart"></div>
+        <!-- Market summary -->
+        <div class="market-summary">
+            <div class="summary-item">
+                <span class="label">Last Price:</span>
+                <span id="lastPrice" class="value">-</span>
             </div>
+            <div class="summary-item">
+                <span class="label">24h Change:</span>
+                <span id="priceChange" class="value">-</span>
+            </div>
+            <div class="summary-item">
+                <span class="label">24h Volume:</span>
+                <span id="volume" class="value">-</span>
+            </div>
+        </div>
 
-            <div class="signals-container">
-                <div class="signal-card">
-                    <h3>Latest Signal</h3>
-                    <p id="latest-signal">No signal</p>
-                    <p id="signal-confidence">Confidence: -</p>
+        <!-- Analysis panels -->
+        <div class="analysis-container">
+            <div class="analysis-panel">
+                <h3>Latest Signal</h3>
+                <div id="signalPanel" class="panel-content">
+                    <p id="signalMessage">No signal available</p>
+                    <div id="signalDetails" class="signal-details"></div>
                 </div>
-                <div class="signal-card">
-                    <h3>LLM Analysis</h3>
-                    <p id="llm-analysis">No analysis available</p>
+            </div>
+            <div class="analysis-panel">
+                <h3>LLM Analysis</h3>
+                <div id="llmPanel" class="panel-content">
+                    <p id="llmMessage">No analysis available</p>
+                    <div id="llmDetails" class="llm-details"></div>
                 </div>
             </div>
-        </main>
-
-        <aside class="market-info">
-            <div class="info-card">
-                <h3>Market Summary</h3>
-                <table>
-                    <tr>
-                        <td>Last Price:</td>
-                        <td id="last-price">-</td>
-                    </tr>
-                    <tr>
-                        <td>24h Change:</td>
-                        <td id="price-change">-</td>
-                    </tr>
-                    <tr>
-                        <td>24h Volume:</td>
-                        <td id="volume">-</td>
-                    </tr>
-                </table>
-            </div>
-        </aside>
+        </div>
     </div>
 
-    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <!-- Custom JavaScript -->
+    <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
 </body>
 </html>

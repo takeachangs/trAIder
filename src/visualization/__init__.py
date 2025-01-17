@@ -1,8 +1,12 @@
 """
-Visualization module for trAIder.
+Visualization package initialization.
 """
 
-from .charting import ChartBuilder, SignalVisualizer
-from .dashboard import Dashboard, DashboardComponent
-
-__all__ = ['ChartBuilder', 'SignalVisualizer', 'Dashboard', 'DashboardComponent']
+from .dashboard import Dashboard
+from .charting import (
+    ChartComponent,
+    PriceChart,
+    VolumeChart,
+    IndicatorChart,
+    calculate_chart_dimensions
+)

@@ -1,3 +1,3 @@
 """
-trAIder package.
+trAIder package initialization
 """

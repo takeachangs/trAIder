@@ -1,3 +1,3 @@
 """
-UI module for trAIder.
+UI package initialization.
 """
