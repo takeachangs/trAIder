@@ -4,11 +4,17 @@ Flask application for trAIder.
 This module implements the web interface for the trading platform.
 """
 
+import os
+import sys
+
+# Add the project root directory to Python path
+project_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.append(project_root)
+
 from flask import Flask, render_template, jsonify, request
-from ..data.data_fetcher import DataFetcher
-from ..analysis.analysis_engine import AnalysisEngine
-from ..visualization.dashboard import Dashboard
-import pandas as pd
+from src.data.data_fetcher import DataFetcher
+from src.analysis.analysis_engine import AnalysisEngine
+from src.visualization.dashboard import Dashboard
 
 app = Flask(__name__)
 
@@ -31,8 +37,23 @@ def get_market_data():
     interval = request.args.get('interval', '1m')
     
     try:
-        # Fetch and analyze data
-        data = data_fetcher.fetch_historical_data(symbol, interval)
+        # Create some dummy data for testing
+        import pandas as pd
+        import numpy as np
+        from datetime import datetime, timedelta
+        
+        # Generate sample data
+        dates = [datetime.now() - timedelta(minutes=x) for x in range(100)]
+        data = pd.DataFrame({
+            'timestamp': dates,
+            'open': np.random.normal(100, 2, 100),
+            'high': np.random.normal(102, 2, 100),
+            'low': np.random.normal(98, 2, 100),
+            'close': np.random.normal(101, 2, 100),
+            'volume': np.random.normal(1000, 100, 100)
+        })
+        
+        # Analyze data
         analyzed_data = analysis_engine.analyze(data)
         
         return jsonify({
@@ -53,13 +74,16 @@ def get_indicators():
     indicator = request.args.get('indicator', 'rsi')
     
     try:
-        # Fetch and calculate indicators
-        data = data_fetcher.fetch_historical_data(symbol)
-        indicators = analysis_engine.analyze(data)
+        # Return dummy indicator data for testing
+        import numpy as np
+        data = {
+            'rsi': np.random.normal(50, 10, 100).tolist(),
+            'macd': np.random.normal(0, 1, 100).tolist()
+        }
         
         return jsonify({
             'status': 'success',
-            'data': indicators[indicator].to_dict()
+            'data': data.get(indicator, [])
         })
     except Exception as e:
         return jsonify({
@@ -74,16 +98,16 @@ def get_signals():
     symbol = request.args.get('symbol', 'BTCUSDT')
     
     try:
-        # Fetch and analyze data for signals
-        data = data_fetcher.fetch_historical_data(symbol)
-        analysis = analysis_engine.analyze(data)
+        # Return dummy signal data for testing
+        import random
+        signal = random.choice([-1, 0, 1])
         
         return jsonify({
             'status': 'success',
             'data': {
-                'timestamp': analysis.index[-1],
-                'signal': analysis['composite_signal'].iloc[-1],
-                'confidence': 0.85  # Placeholder
+                'timestamp': datetime.now().isoformat(),
+                'signal': signal,
+                'confidence': random.random()
             }
         })
     except Exception as e:
